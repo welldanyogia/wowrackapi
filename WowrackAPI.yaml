@@ -1,0 +1,200 @@
+openapi: 3.0.0
+info:
+  title: Wowrack Customer App API
+  description: API Documentation for Wowrack Customer App
+  version: 1.0.0
+servers:
+  - url: https://api.webranastore.com/
+paths:
+  /users/login:
+    post:
+      summary: Authenticate user and receive a token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /users/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+  /users/{email}:
+    get:
+      summary: Get user details by email
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+          description: User's email address
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  isAdmin:
+                    type: boolean
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /articles:
+    get:
+      summary: Retrieve all articles
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  articles_size:
+                    type: integer
+                  articles:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title:
+                          type: string
+                        description:
+                          type: string
+                        imageUrl:
+                          type: string
+    post:
+      summary: Create a new article
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                imageUrl:
+                  type: string
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  description:
+                    type: string
+                  imageUrl:
+                    type: string
+  /hotspot:
+    get:
+      summary: Retrieve all hotspots
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hotspot_size:
+                    type: integer
+                  hotspots:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        lang:
+                          type: number
+                        long:
+                          type: number
+    post:
+      summary: Add a new hotspot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                lang:
+                  type: number
+                long:
+                  type: number
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  lang:
+                    type: number
+                  long:
+                    type: number
