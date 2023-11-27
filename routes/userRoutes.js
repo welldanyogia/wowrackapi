@@ -1,9 +1,8 @@
 import express from 'express';
 import {
-  getUsers,
+  getUserByEmail,
   login,
   register,
-  updateUserProfile,
 } from '../controllers/userController.js';
 import { admin, protect } from '../middlewares/authMiddleware.js';
 const router = express.Router();
