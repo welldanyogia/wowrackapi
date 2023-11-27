@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import connectDb from './db.js';
 import cors from 'cors';
+import path from 'path';
 dotenv.config();
 
 import userRoutes from './routes/userRoutes.js';
@@ -20,8 +21,10 @@ app.use('/users', userRoutes);
 app.use('/articles', articleRoutes);
 app.use('/hotspot', hotspotRoutes);
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/', (req, res) => {
-  res.json({ message: 'Hello World' });
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 const PORT = process.env.PORT;
